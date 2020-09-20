@@ -1,0 +1,115 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	<style>
+		.rolling-banner{
+			position:relative;
+			top:100px;
+			left:100px;
+			width:400px;			
+			height:200px;
+			
+			overflow:hidden;;
+			border:2px solid #000;
+		}
+		
+		.rolling-banner img{
+			position:absolute;
+			top:0;
+			left:0;
+			opacity:0.5;
+		
+		}
+				
+	</style>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript">
+		/*
+		 미션01 롤링 배너 ver 1.0: 클래스 단위 코딩
+		 다음과 같이 동작하는 롤링배너를 만들어 주세요.
+		 요구사항
+			 1. 특정 시간마다 아래에서 위로 이미지가 부드럽게 롤링되며 변하게 만들어 주세요.
+			 2. 모든 작업은 prototype 방식으로 클래스로 만들어 주세요.
+		*/
+		 /*
+		 * step #00
+		 * 		- 레이아웃 잡기
+		 *
+		 */
+		$(document).ready(function(){
+            var rolling = new RollingBanner();
+			
+        });
+        
+        function RollingBanner(){
+            this._$banners = null;
+            this._curentIndex = 0;
+
+            this._timerID =-1;
+            this._init();
+            this._initBannerPos();
+
+            this.startAutoPlay();
+        }
+
+        RollingBanner.prototype._init = function(){
+            this._$banners = $("#banner1 img");
+        }
+
+        RollingBanner.prototype._initBannerPos = function(){
+            this._$banners.css("top",200);
+            this._$banners.eq(this._curentIndex).css("top",0);
+
+        }
+
+        RollingBanner.prototype.startAutoPlay = function(){
+            var obj = this;
+
+            if(this._timerID==-1){
+                this._timerID = setInterval(function(){
+                    obj.nextBanner();
+                },2000);
+            }
+        }
+
+        RollingBanner.prototype.nextBanner = function(){
+            var outIndex = this._curentIndex;
+            this._curentIndex++;
+            if(this._curentIndex >= this._$banners.length){
+                this._curentIndex = 0;
+            }
+
+            //현재배너구하기
+            var $outBanner = this._$banners.eq(outIndex);
+            var $inBanner = this._$banners.eq(this._curentIndex);
+
+            $outBanner.css({
+                top : -200
+            });
+
+            $inBanner.css({
+                top : 0
+            });
+
+        }
+		
+	</script>
+</head>
+
+<body>
+	<div class="rolling-banner" id = "banner1">
+		<img src="images/logo_01.jpg">
+		<img src="images/logo_02.jpg">
+		<img src="images/logo_03.jpg">
+		<img src="images/logo_04.jpg">
+		<img src="images/logo_05.jpg">
+		<img src="images/logo_06.jpg">
+	</div>    
+</body>
+</html>
+
+
+

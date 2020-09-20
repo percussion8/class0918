@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var arr = [1,2,3,4];
+        var forEach = (array, fn) => {
+            for(var i=0; i<array.length; i++){
+                fn(array[i])
+            }
+        } 
+        forEach(arr, (data) => console.log(data)); //내가 생성한 함수
+
+        [1,2,3,4,5].forEach(i => console.log(i*2)); //기본 제공되는 함수
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
